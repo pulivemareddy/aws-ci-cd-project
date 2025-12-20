@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR
+      - aws --version
+      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.ap-south-1.amazonaws.com)
+
+  build:
+    commands:
+      - echo Build started
+      - docker build -t flask-ci-cd .
+      - docker tag flask-ci-cd:latest 123456789012.dkr.ecr.ap-south-1.amazonaws.com/flask-ci-cd:latest
+
+  post_build:
+    commands:
+      - echo Pushing image to ECR
+      - docker push 123456789012.dkr.ecr.ap-south-1.amazonaws.com/flask-ci-cd:latest
