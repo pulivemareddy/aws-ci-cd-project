@@ -5,15 +5,15 @@ phases:
     commands:
       - echo Logging in to Amazon ECR
       - aws --version
-      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.ap-south-1.amazonaws.com)
+      - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 124355642518.dkr.ecr.eu-north-1.amazonaws.com
 
   build:
     commands:
       - echo Build started
-      - docker build -t flask-ci-cd .
-      - docker tag flask-ci-cd:latest 123456789012.dkr.ecr.ap-south-1.amazonaws.com/flask-ci-cd:latest
+      - docker build -t aws-ci-cd-project .
+      - docker tag aws-ci-cd-project:latest 124355642518.dkr.ecr.eu-north-1.amazonaws.com/aws-ci-cd-project:latest
 
   post_build:
     commands:
       - echo Pushing image to ECR
-      - docker push 123456789012.dkr.ecr.ap-south-1.amazonaws.com/flask-ci-cd:latest
+      - docker push 124355642518.dkr.ecr.eu-north-1.amazonaws.com/aws-ci-cd-project:latest
