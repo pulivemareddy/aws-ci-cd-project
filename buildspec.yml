@@ -15,5 +15,9 @@ phases:
 
   post_build:
     commands:
-      - echo Pushing image to ECR
+      - echo Pushing Docker image
       - docker push 124355642518.dkr.ecr.eu-north-1.amazonaws.com/aws-ci-cd-project:latest
+
+artifacts:
+  files:
+    - '**/*'
